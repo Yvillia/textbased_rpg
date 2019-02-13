@@ -17,7 +17,7 @@ Project Components
         (2) View Item
         (3) Use Item
         (4) Drop Item
-    (F) Stance
+    (F) Stance - Noah Rogers
         (1) Attack
         (2) Defensive
     (G) Cast
