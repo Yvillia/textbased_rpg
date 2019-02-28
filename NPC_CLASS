@@ -1,0 +1,133 @@
+public class NPC_Class implements Lifeforms{
+    
+    private final int[] stats;
+    private boolean essential;
+    private final String fName;
+    private final String lName;
+    private final String description;
+    private final String[] useableAction;
+    private Item [] inventory;
+    private final boolean shopKeeper;
+    private final Quest[] linkedQuest;
+    private final Grid location;
+    private final EquipableItem[] equipment;
+    private final String[] dialogue; 
+    private int health;
+    private int mana;
+    private int level;
+    
+    NPC_Class(String fName, String lName, String description, int[] stats, String[] useableAction, Item[] inventory,
+    boolean shopKeeper, Quest[] linkedQuest, grid location, EquipableItem[] equipment, String[] dialogue, int health, int mana,
+    int level)
+         {
+             this.fName = fName;
+             this.lName = lName;
+             this.description = description;
+             this.stats = stats;
+             this.useableAction = useableAction;
+             this.inventory = inventory;
+             this.shopKeeper = shopKeeper;
+             this.linkedQuest = linkedQuest;
+             this.location = location;
+             this.equipment = equipment;
+             this.dialogue = dialogue;
+             this.health = health;
+             this.mana = mana;
+             this.level = level;
+             
+             //Change useableAction.length == ? to equal the same amount of commands as a trash NPC will have
+            if(Quest.length == 0 && shopKeeper == false && useableAction.length <= 2)     
+                this.essential = false;
+            else
+                this.essential = true;
+         }
+    
+    
+    @Override
+    public int accuracy(Lifeforms target)
+    {
+        int result = (int)(Math.random()* 101);
+        if(result >= ((target.getStats()[1]/5 - this.stats[1]/5) + 30 + (target.getLevel() - this.level)))
+           return result;
+        else
+            return 0;
+    }
+        
+    @Override
+    public int attack(Lifeforms target)
+    { 
+       int critChance = accuracy(target);
+       if(!(target.getHealth() <= 0) && this.health > 0 && !(critChance == 0))
+       {    if(critChance  > (98 - this.stats[8]/5))
+                return equipment[4].getDamage(stats) * 1.5;
+            return equipment[4].getDamage(stats);
+       }
+       return 0; 
+    }
+    
+  
+    @Override
+    public int[] getStats() {
+        return stats;
+    }
+
+    public boolean isEssential() {
+        return essential;
+    }
+    
+    @Override
+    public String getName() {
+        String fullName = fName + " " + lName;
+        return fullName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String[] getUseableAction() {
+        return useableAction;
+    }
+    
+    @Override
+    public Item[] getInventory() {
+        return inventory;
+    }
+
+    public boolean isShopKeeper() {
+        return shopKeeper;
+    }
+
+    public Quest[] getLinkedQuest() {
+        return linkedQuest;
+    }
+    
+    @Override
+    public Grid getLocation() {
+        return location;
+    }
+
+    public EquipableItem[] getEquipment() {
+        return equipment;
+    }
+
+    public String[] getDialogue() {
+        return dialogue;
+    }
+    
+    @Override
+    public int getHealth() {
+        return health;
+    }
+    
+    @Override
+    public int getMana() {
+        return mana;
+    }
+    
+    @Override
+    public int getLevel() {
+        return level;
+    }
+    
+}
